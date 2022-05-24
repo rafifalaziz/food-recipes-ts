@@ -5,8 +5,4 @@
     "outDir": "build",
     "esModuleInterop": true,
   },
-  "include": [
-    "src/**/*.ts",
-    "test/**/*.ts"
-  ]
 }
