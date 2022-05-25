@@ -3,6 +3,7 @@ import {Schema, model} from 'mongoose';
 interface IUser {
   username: string;
   password: string;
+  foods: Array<Object>;
 }
 
 const userSchema = new Schema<IUser>({
@@ -14,6 +15,12 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
+  foods: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Food',
+    },
+  ],
 });
 
 const User = model<IUser>('User', userSchema);
