@@ -1,10 +1,8 @@
 import jwt from 'jsonwebtoken';
-import {Response, NextFunction} from 'express';
-import {CustomRequest} from '../types';
+import {Response, NextFunction, Request} from 'express';
 
-function verifyToken(req: CustomRequest, res: Response, next: NextFunction) {
+function verifyToken(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization;
-  console.log(token);
   if (!token) {
     return res.status(403).send({
       message: 'No token provided!',
@@ -21,7 +19,7 @@ function verifyToken(req: CustomRequest, res: Response, next: NextFunction) {
           message: 'Unauthorized!',
         });
       }
-      req.user = decoded;
+      res.locals.user = decoded;
       next();
     }
   );

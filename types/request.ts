@@ -1,13 +1,11 @@
 import {Request} from 'express';
 
-type userObject = {
+type userType = {
   username: string;
-  password: string;
-  foods: Array<object>;
 };
 
 interface CustomRequest extends Request {
-  user?: Object;
+  user: userType;
 }
 
-export {userObject, CustomRequest};
+export {userType, CustomRequest};

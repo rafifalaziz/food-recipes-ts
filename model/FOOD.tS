@@ -1,10 +1,11 @@
-import {Schema, model} from 'mongoose';
+import { ObjectId } from 'mongodb';
+import {Schema, model, Types, SchemaTypes} from 'mongoose';
 
 interface IFood {
   name: string;
   description: string;
   calories: string;
-//   user: object;
+  user_id: Types.ObjectId;
 }
 
 const foodSchema = new Schema<IFood>({
@@ -20,11 +21,11 @@ const foodSchema = new Schema<IFood>({
     type: String,
     required: true,
   },
-//   user: 
-//     {
-//       type: Schema.Types.ObjectId,
-//       ref: 'User',
-//     },
+  user_id: 
+    {
+      type: SchemaTypes.ObjectId,
+      required: true,
+    },
 });
 
 const Food = model<IFood>('Food', foodSchema);

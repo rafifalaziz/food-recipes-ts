@@ -58,7 +58,7 @@ class User {
       );
       if (comparisonPassword) {
         const token = jwt.sign(
-          {username: req.body.username},
+          {_id: USER[0]._id},
           process.env.secret as string,
           {
             expiresIn: 86400 * 356, // 1 year
