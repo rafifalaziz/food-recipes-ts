@@ -40,7 +40,6 @@ export default function (
 ): void {
   return upload(req, res, err => {
     if (err) {
-      console.log(err);
       return res.status(400).send({
         status: 400,
         message: 'BAD_REQUEST',

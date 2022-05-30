@@ -7,7 +7,6 @@ class Food {
     try {
       const {name, description, calories} = req.body;
       const user = await USER.findById(res.locals.user);
-      console.log(user);
       const FOOD = new food({
         name: name,
         description: description,
@@ -118,7 +117,6 @@ class Food {
         limit: limit,
       });
     } catch (error) {
-      console.log(error);
       res.status(500).send({
         success: false,
         message: 'Mendapatkan list makanan gagal',

@@ -36,7 +36,6 @@ class User {
         code: 500,
         error,
       });
-      console.log(error);
     }
   }
 
@@ -79,7 +78,6 @@ class User {
         return;
       }
     } catch (error) {
-      console.log(error);
       res.status(500).send({
         success: false,
         message: 'login gagal',
