@@ -5,6 +5,7 @@ interface IFood {
   name: string;
   description: string;
   calories: string;
+  image: string;
   user_id: Types.ObjectId;
 }
 
@@ -20,6 +21,9 @@ const foodSchema = new Schema<IFood>({
   calories: {
     type: String,
     required: true,
+  },
+  image: {
+    type: String,
   },
   user_id: 
     {

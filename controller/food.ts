@@ -12,6 +12,9 @@ class Food {
         name: name,
         description: description,
         calories: calories,
+        image: req.file
+          ? req.get('host') + '/upload/' + req.file.filename
+          : null,
         user_id: user!._id,
       });
       await USER.findByIdAndUpdate(user!._id, {$push: {foods: FOOD}});
@@ -37,6 +40,7 @@ class Food {
       const id = new mongoose.mongo.ObjectId(req.params.id);
       await food.findByIdAndUpdate(id, {
         ...req.body,
+        image: req.get('host') + '/upload/' + req.file?.filename,
       });
       res.status(200).send({
         success: true,
@@ -73,6 +77,51 @@ class Food {
       res.status(500).send({
         success: false,
         message: 'Menghapus makanan gagal',
+        code: 500,
+        error,
+      });
+    }
+  }
+
+  async getFood(req: Request, res: Response) {
+    try {
+      const id = new mongoose.mongo.ObjectId(req.params.id);
+      const FOOD = await food.findById(id);
+      res.status(200).send({
+        success: true,
+        message: 'Mendapatkan makanan berhasil',
+        code: 200,
+        FOOD,
+      });
+    } catch (error) {
+      res.status(500).send({
+        success: false,
+        message: 'Mendapatkan makanan gagal',
+        code: 500,
+        error,
+      });
+    }
+  }
+
+  async listFood(req: Request, res: Response) {
+    try {
+      const limit = parseInt(req.params.limit);
+      const page = parseInt(req.params.page);
+      const offset = (page - 1) * limit;
+      const foods = await food.find({}).skip(offset).limit(limit);
+      res.status(200).send({
+        success: true,
+        message: 'Mendapatkan list makanan berhasil',
+        code: 200,
+        foods,
+        currentPage: page,
+        limit: limit,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        message: 'Mendapatkan list makanan gagal',
         code: 500,
         error,
       });
